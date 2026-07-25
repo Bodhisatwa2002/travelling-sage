@@ -1,0 +1,134 @@
+import Image from "next/image";
+import { Globe, Camera, MessageCircle, Briefcase } from "lucide-react";
+import { founder, authors } from "@/data/authors";
+import ContactForm from "@/components/ContactForm";
+
+export default function AboutPage() {
+  return (
+    <div className="max-w-360 mx-auto px-8 py-12">
+      <div className="grid grid-cols-2 gap-16">
+        {/* Left Column */}
+        <div className="space-y-12">
+          {/* About Us */}
+          <section>
+            <h1 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[48px] font-bold mb-6">
+              About Us
+            </h1>
+            <div className="space-y-4 text-[15px] text-[#1A1A1A] leading-relaxed">
+              <p>
+                Welcome to READZ, your companion for exploring India&apos;s most
+                extraordinary destinations. From the ghats of Banaras to the
+                mountain trails of Uttarakhand, we bring you stories that go
+                beyond the guidebook — the kind written by travelers who have
+                walked the paths they describe.
+              </p>
+              <p>
+                We&apos;re passionate about slow, meaningful travel. Our writers
+                live in the places they write about, eat at the stalls locals
+                swear by, and trek the trails before recommending them. Every
+                story is a firsthand account.
+              </p>
+            </div>
+          </section>
+
+          {/* Founder */}
+          <section>
+            <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[36px] font-bold mb-6">
+              Our founder
+            </h2>
+            <div className="flex gap-6">
+              <div className="relative w-48 h-56 shrink-0 overflow-hidden">
+                <Image
+                  src={founder.image!}
+                  alt={founder.name}
+                  fill
+                  className="object-cover"
+                  sizes="192px"
+                />
+              </div>
+              <div className="space-y-3">
+                <h3 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[26px] font-bold">
+                  {founder.name}
+                </h3>
+                <p className="text-sm text-[#1A1A1A] leading-relaxed">
+                  {founder.bio}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Authors */}
+          <section id="authors">
+            <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[36px] font-bold mb-6">
+              Authors
+            </h2>
+            <div className="grid grid-cols-3 gap-4">
+              {authors.map((author) => (
+                <p
+                  key={author.slug}
+                  className="text-[13px] font-semibold tracking-wide"
+                >
+                  {author.name.toUpperCase()}
+                </p>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-12">
+          {/* Contact Us */}
+          <section>
+            <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[48px] font-bold mb-6">
+              Contact us
+            </h2>
+            <ContactForm />
+
+            <div className="mt-8 space-y-2 text-sm">
+              <p>New Delhi, Hauz Khas Village, 110016</p>
+              <p>hello@readztravels.com</p>
+              <p>+91 98765 43210</p>
+            </div>
+
+            <div className="flex gap-4 mt-4">
+              <Globe size={18} className="text-[#1A1A1A]" />
+              <Camera size={18} className="text-[#1A1A1A]" />
+              <MessageCircle size={18} className="text-[#1A1A1A]" />
+              <Briefcase size={18} className="text-[#1A1A1A]" />
+            </div>
+          </section>
+
+          {/* Collaborate */}
+          <section>
+            <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[36px] font-bold mb-4">
+              Collaborate or Partner
+            </h2>
+            <div className="space-y-3 text-[15px] leading-relaxed">
+              <p>
+                Interested in joining the READZ team, exploring partnerships, or
+                sharing a travel story? We&apos;d love to connect.
+              </p>
+              <p>
+                We don&apos;t run sponsored travel pieces or banner ads, but
+                we&apos;re always open to meaningful collaborations with fellow
+                travelers and storytellers. Reach out anytime at
+                partnerships@readztravels.com
+              </p>
+            </div>
+          </section>
+
+          {/* Careers */}
+          <section>
+            <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[36px] font-bold mb-4">
+              Careers
+            </h2>
+            <p className="text-[15px] leading-relaxed">
+              Love writing about travel? Join the READZ team! Apply now at
+              careers@readztravels.com
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+}
