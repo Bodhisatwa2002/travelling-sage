@@ -5,7 +5,7 @@ const leftCards = [
   {
     issueNumber: "No. 014",
     category: "Adventure",
-    author: "Arjun Mehta",
+    author: "Bodhisatwa",
     readTime: "5 min read",
     title: "Rishikesh to Badrinath — the ultimate Uttarakhand road trip",
     image:
@@ -15,7 +15,7 @@ const leftCards = [
   {
     issueNumber: "No. 016",
     category: "Trekking",
-    author: "Rohan Kapoor",
+    author: "Bodhisatwa",
     readTime: "6 min read",
     title: "Hemkund Sahib trek — a sacred pilgrimage above the clouds",
     image:
@@ -27,7 +27,7 @@ const leftCards = [
 const centerCard = {
   issueNumber: "No. 017",
   category: "Trekking",
-  author: "Priya Sharma",
+  author: "Bodhisatwa",
   readTime: "6 min read",
   title: "Valley of Flowers — a Himalayan paradise in bloom",
   image:
@@ -38,17 +38,17 @@ const centerCard = {
 const rightArticles = [
   {
     title: "Hidden gems of Old Delhi — a walking guide",
-    author: "Kavya Nair",
+    author: "Bodhisatwa",
     readTime: "5 min read",
   },
   {
     title: "Planning your first Himalayan trek — a beginner's guide",
-    author: "Rohan Kapoor",
+    author: "Bodhisatwa",
     readTime: "8 min read",
   },
   {
     title: "Pondicherry — where France meets India by the sea",
-    author: "Arjun Mehta",
+    author: "Bodhisatwa",
     readTime: "6 min read",
   },
 ];
@@ -103,7 +103,7 @@ function DiscoverCard({ card }: DiscoverCardProps) {
         </span>
       </div>
       <div className="px-3.5 pt-1 pb-4">
-        <h4 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[22px] font-bold leading-snug">
+        <h4 className="font-[family-name:var(--font-moret)] text-[22px] font-bold leading-snug">
           <span className="group-hover:bg-[#E8D5A3] transition-colors duration-300 box-decoration-clone">
             {card.title}
           </span>
@@ -115,14 +115,14 @@ function DiscoverCard({ card }: DiscoverCardProps) {
 
 export default function DiscoverSection() {
   return (
-    <section className="max-w-360 mx-auto px-10 py-16">
-      <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] font-bold text-[48px]">
+    <section className="max-w-360 mx-auto px-4 md:px-10 py-10 md:py-16">
+      <h2 className="font-[family-name:var(--font-moret)] font-bold text-[28px] md:text-[48px]">
         Discover more stories
       </h2>
 
       <SectionSeparator />
 
-      <div className="grid grid-cols-[340px_1fr_340px] gap-6 pt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[340px_1fr_340px] gap-6 pt-4">
         {/* Left Column - 2 small cards */}
         <div className="space-y-6">
           {leftCards.map((card) => (
@@ -138,7 +138,7 @@ export default function DiscoverSection() {
           {rightArticles.map((article, i) => (
             <div key={i} className="group cursor-pointer">
               <div className="py-5 space-y-2">
-                <h4 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[22px] font-bold leading-snug">
+                <h4 className="font-[family-name:var(--font-moret)] text-[22px] font-bold leading-snug">
                   <span className="group-hover:bg-[#E8D5A3] transition-colors duration-300 box-decoration-clone">
                     {article.title}
                   </span>

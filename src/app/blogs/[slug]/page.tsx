@@ -1,11 +1,28 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { posts, getPostBySlug } from "@/data/posts";
+import { getAllPosts, getPostBySlug as fetchPostBySlug } from "@/sanity/queries/posts";
+import { getAllAuthors } from "@/sanity/queries/authors";
 import BlogDetailSidebar from "@/components/BlogDetailSidebar";
+import ShareButtons from "@/components/ShareButtons";
+import ReadingProgress from "@/components/ReadingProgress";
+import RelatedPosts from "@/components/RelatedPosts";
+import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import type { TocItem } from "@/components/TableOfContents";
 
-export function generateStaticParams() {
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travellingsage.com";
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
@@ -13,9 +30,44 @@ interface BlogDetailProps {
   params: Promise<{ slug: string }>;
 }
 
+export async function generateMetadata({ params }: BlogDetailProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await fetchPostBySlug(slug);
+
+  if (!post) return { title: "Post Not Found" };
+
+  const title = post.seoTitle || post.title;
+  const description = post.metaDescription || post.subtitle || `Read ${post.title} on Traveling Sage`;
+  const image = post.ogImage || post.image;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `${SITE_URL}/blogs/${slug}`,
+      type: "article",
+      images: [{ url: image, width: 1200, height: 630, alt: post.title }],
+      siteName: "Traveling Sage",
+      ...(post.publishedAt && { publishedTime: post.publishedAt }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
+
 export default async function BlogDetailPage({ params }: BlogDetailProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const [post, posts, authors] = await Promise.all([
+    fetchPostBySlug(slug),
+    getAllPosts(),
+    getAllAuthors(),
+  ]);
 
   if (!post) notFound();
 
@@ -28,10 +80,49 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
     (p) => p.slug !== slug && p.featured
   );
 
+  const author = authors.find(
+    (a) => a.name.toLowerCase() === post.author.toLowerCase()
+  );
+
+  const relatedPosts = posts
+    .filter(
+      (p) =>
+        p.slug !== slug &&
+        (p.category === post.category || p.destination === post.destination)
+    )
+    .slice(0, 3);
+
+  const tocItems: TocItem[] = [];
+  if (post.content) {
+    post.content.forEach((section) => {
+      tocItems.push({ id: slugify(section.heading), text: section.heading, level: "h2" });
+      section.subSections?.forEach((sub) => {
+        tocItems.push({ id: slugify(sub.heading), text: sub.heading, level: "h3" });
+      });
+    });
+  }
+
   return (
     <div className="max-w-360 mx-auto">
+      <ReadingProgress />
+      <ArticleJsonLd
+        title={post.seoTitle || post.title}
+        description={post.metaDescription || post.subtitle || `Read ${post.title} on Traveling Sage`}
+        url={`${SITE_URL}/blogs/${slug}`}
+        image={post.ogImage || post.image}
+        author={post.author}
+        publishedAt={post.publishedAt}
+        category={post.category}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: SITE_URL },
+          { name: "Blog", href: `${SITE_URL}/blogs` },
+          { name: post.title, href: `${SITE_URL}/blogs/${slug}` },
+        ]}
+      />
       {/* Article Header - centered */}
-      <div className="flex flex-col items-center gap-5 px-[200px] pt-12 pb-5">
+      <div className="flex flex-col items-center gap-5 px-4 md:px-10 lg:px-[200px] pt-8 md:pt-12 pb-5">
         {/* Breadcrumbs */}
         <div className="flex items-center gap-2 text-[13px] text-[#555555]">
           <Link href="/" className="hover:text-[#1A1A1A] transition-colors">
@@ -47,7 +138,7 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
         </div>
 
         {/* Title */}
-        <h1 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[56px] font-bold leading-[1.15] text-center">
+        <h1 className="font-[family-name:var(--font-moret)] text-[28px] md:text-[40px] lg:text-[56px] font-bold leading-[1.15] text-center">
           {post.title}
         </h1>
 
@@ -64,10 +155,13 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
           <span className="text-[#555555]">|</span>
           <span className="text-[#555555]">{post.readTime}</span>
         </div>
+
+        {/* Share Buttons */}
+        <ShareButtons title={post.title} slug={post.slug} />
       </div>
 
       {/* Content Area */}
-      <div className="flex gap-[60px] px-10 pt-5">
+      <div className="flex flex-col md:flex-row gap-8 md:gap-[60px] px-4 md:px-10 pt-5">
         {/* Article Column */}
         <div className="flex-1 min-w-0">
           {/* Hero Image */}
@@ -87,7 +181,10 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
             {post.content ? (
               post.content.map((section, i) => (
                 <div key={i}>
-                  <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[32px] font-bold leading-[1.3] mb-5">
+                  <h2
+                    id={slugify(section.heading)}
+                    className="font-[family-name:var(--font-moret)] text-[32px] font-bold leading-[1.3] mb-5 scroll-mt-20"
+                  >
                     {section.heading}
                   </h2>
                   {section.paragraphs.map((p, j) => (
@@ -101,7 +198,10 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
                   {section.subSections?.map((sub, k) => (
                     <div key={k}>
                       <div className="h-4" />
-                      <h3 className="text-lg font-bold leading-[1.4] mb-5">
+                      <h3
+                        id={slugify(sub.heading)}
+                        className="text-lg font-bold leading-[1.4] mb-5 scroll-mt-20"
+                      >
                         {sub.heading}
                       </h3>
                       {sub.paragraphs.map((p, l) => (
@@ -127,6 +227,11 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
               </div>
             )}
           </article>
+
+          {/* Bottom Share */}
+          <div className="pt-8">
+            <ShareButtons title={post.title} slug={post.slug} />
+          </div>
 
           {/* Bottom Separator */}
           <div className="h-px bg-[#CCCCCC] mt-8" />
@@ -176,6 +281,9 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
               <div className="flex-1" />
             )}
           </div>
+
+          {/* Related Posts */}
+          <RelatedPosts posts={relatedPosts} />
         </div>
 
         {/* Sidebar */}
@@ -183,6 +291,8 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
           post={post}
           featuredPost={featuredPost}
           recentPosts={recentPosts}
+          authorImage={author?.image}
+          tocItems={tocItems}
         />
       </div>
     </div>

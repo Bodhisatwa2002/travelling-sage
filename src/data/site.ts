@@ -1,11 +1,12 @@
 export const siteConfig = {
-  name: "READZ™",
+  name: "SAGE",
   description: "A travel magazine for the curious explorer",
   tagline:
     "Dive into stories from India's most captivating destinations — from ancient ghats to Himalayan trails.",
   navLinks: [
     { label: "HOME", href: "/" },
     { label: "BLOG", href: "/blogs" },
+    { label: "DESTINATIONS", href: "/destinations" },
     { label: "CATEGORIES", href: "/categories" },
     { label: "GALLERY", href: "/gallery" },
     { label: "ABOUT", href: "/about" },
@@ -14,8 +15,9 @@ export const siteConfig = {
     pages: [
       { label: "HOME", href: "/" },
       { label: "BLOG", href: "/blogs" },
-      { label: "AUTHORS", href: "/about#authors" },
+      { label: "AUTHOR", href: "/about#authors" },
       { label: "CATEGORIES", href: "/categories" },
+      { label: "DESTINATIONS", href: "/destinations" },
       { label: "ABOUT/CONTACT", href: "/about" },
     ],
     socials: [

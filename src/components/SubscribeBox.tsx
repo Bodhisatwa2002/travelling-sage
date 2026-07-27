@@ -3,7 +3,7 @@ export default function SubscribeBox() {
     <div className="bg-[#F0F0EC] p-8 space-y-6">
       <div className="flex items-start justify-between">
         <div className="space-y-2">
-          <h3 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[22px] font-bold">
+          <h3 className="font-[family-name:var(--font-moret)] text-[22px] font-bold">
             Don&apos;t miss a thing
           </h3>
           <p className="text-sm text-[#555555]">

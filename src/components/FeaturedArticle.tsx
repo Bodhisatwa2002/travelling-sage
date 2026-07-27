@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BlogPost } from "@/data/posts";
+import { BlogPost } from "@/types";
 
 interface FeaturedArticleProps {
   post: BlogPost;
@@ -25,7 +25,7 @@ export default function FeaturedArticle({ post }: FeaturedArticleProps) {
             by {post.author} &nbsp;|&nbsp; {post.readTime}
           </span>
         </div>
-        <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[30px] font-bold leading-tight">
+        <h2 className="font-[family-name:var(--font-moret)] text-[30px] font-bold leading-tight">
           <span className="group-hover:bg-[#E8D5A3] transition-colors duration-300 box-decoration-clone">
             {post.title}
           </span>

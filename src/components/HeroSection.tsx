@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BlogPost } from "@/data/posts";
+import { BlogPost } from "@/types";
 
 interface HeroSectionProps {
   featuredPost: BlogPost;
@@ -8,13 +8,13 @@ interface HeroSectionProps {
 
 export default function HeroSection({ featuredPost }: HeroSectionProps) {
   return (
-    <section className="max-w-360 mx-auto px-8 py-12">
-      <div className="grid grid-cols-2 gap-10 items-start">
+    <section className="max-w-360 mx-auto px-4 md:px-8 py-8 md:py-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-start">
         {/* Left - Heading box + Newsletter box */}
         <div className="space-y-0">
           {/* Heading with solid border */}
-          <div className="border border-[#CCCCCC] p-10 space-y-6">
-            <h1 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[64px] leading-[1.05] tracking-tight">
+          <div className="border border-[#CCCCCC] p-5 md:p-10 space-y-4 md:space-y-6">
+            <h1 className="font-[family-name:var(--font-moret)]  text-[32px] md:text-[48px] lg:text-[64px] leading-[1.05] tracking-tight">
               A travel magazine
               <br />
               for curious explorers
@@ -27,26 +27,15 @@ export default function HeroSection({ featuredPost }: HeroSectionProps) {
           </div>
 
           {/* Newsletter with dashed border */}
-          <div className="border-3 border-dashed border-[#1A1A1A] p-8 space-y-5">
+          <div className="border-3 border-dashed border-[#1A1A1A] p-5 md:p-8 space-y-4 md:space-y-5">
             <div className="flex items-start justify-between">
               <div className="space-y-1">
-                <h3 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[22px] font-bold">
+                <h3 className="font-[family-name:var(--font-moret)] text-[22px] font-bold">
                   Don&apos;t miss a thing
                 </h3>
                 <p className="text-sm text-[#555555]">
                   Subscribe to get updates straight to your inbox.
                 </p>
-              </div>
-
-              {/* Stamp decoration */}
-              <div className="border-2 border-[#1A1A1A] p-2 text-center rotate-[-8deg] opacity-50 shrink-0 ml-4">
-                <p className="text-[8px] font-bold tracking-wider">DELHI</p>
-                <p className="text-[10px] font-semibold leading-tight">
-                  15 AUG
-                  <br />
-                  1947
-                </p>
-                <p className="text-[8px] font-bold tracking-wider">INDIA</p>
               </div>
             </div>
 
@@ -102,12 +91,11 @@ export default function HeroSection({ featuredPost }: HeroSectionProps) {
                   {featuredPost.category}
                 </span>
                 <span className="text-[13px] text-[#555555]">
-                  by {featuredPost.author} &nbsp;|&nbsp;{" "}
-                  {featuredPost.readTime}
+                  by {featuredPost.author} &nbsp;|&nbsp; {featuredPost.readTime}
                 </span>
               </div>
 
-              <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[30px] font-bold leading-tight">
+              <h2 className="font-[family-name:var(--font-moret)] text-[22px] md:text-[30px] font-bold leading-tight">
                 <span className="group-hover:bg-[#E8D5A3] transition-colors duration-300 box-decoration-clone">
                   {featuredPost.title}
                 </span>

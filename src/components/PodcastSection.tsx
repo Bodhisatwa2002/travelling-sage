@@ -6,7 +6,7 @@ const podcasts = [
   {
     episodeNumber: "Ep. 005",
     title: "Banaras after dark — ghats, chai, and midnight stories",
-    author: "Priya Sharma",
+    author: "Bodhisatwa",
     duration: "1hr 50min",
     image:
       "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=400&q=80",
@@ -14,7 +14,7 @@ const podcasts = [
   {
     episodeNumber: "Ep. 004",
     title: "Trekking tales — lessons from the Himalayan trails",
-    author: "Rohan Kapoor",
+    author: "Bodhisatwa",
     duration: "2hr 10min",
     image:
       "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=400&q=80",
@@ -23,14 +23,14 @@ const podcasts = [
 
 export default function PodcastSection() {
   return (
-    <section className="max-w-360 mx-auto px-10 py-16">
-      <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] font-bold text-[48px]">
+    <section className="max-w-360 mx-auto px-4 md:px-10 py-10 md:py-16">
+      <h2 className="font-[family-name:var(--font-moret)] font-bold text-[28px] md:text-[48px]">
         Podcast
       </h2>
 
       <SectionSeparator />
 
-      <div className="grid grid-cols-2 gap-6 pt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
         {podcasts.map((podcast) => (
           <article
             key={podcast.episodeNumber}
@@ -50,9 +50,9 @@ export default function PodcastSection() {
             </div>
 
             {/* Content Row */}
-            <div className="flex gap-5 px-3 pb-3">
+            <div className="flex flex-col sm:flex-row gap-5 px-3 pb-3">
               {/* Cover Image */}
-              <div className="relative w-[280px] h-[280px] shrink-0 overflow-hidden">
+              <div className="relative w-full sm:w-[200px] md:w-[280px] h-[200px] sm:h-[200px] md:h-[280px] shrink-0 overflow-hidden">
                 <Image
                   src={podcast.image}
                   alt={podcast.title}
@@ -64,7 +64,7 @@ export default function PodcastSection() {
 
               {/* Text Column */}
               <div className="flex flex-col justify-start gap-3 pt-2">
-                <h3 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[22px] font-bold leading-snug">
+                <h3 className="font-[family-name:var(--font-moret)] text-[22px] font-bold leading-snug">
                   <span className="group-hover:bg-[#E8D5A3] transition-colors duration-300 box-decoration-clone">
                     {podcast.title}
                   </span>

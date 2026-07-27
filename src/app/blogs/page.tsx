@@ -1,14 +1,16 @@
-import { posts } from "@/data/posts";
+import { getAllPosts } from "@/sanity/queries/posts";
 import BlogCard from "@/components/BlogCard";
 
-export default function BlogsPage() {
+export default async function BlogsPage() {
+  const posts = await getAllPosts();
+
   return (
-    <div className="max-w-360 mx-auto px-8 py-12">
-      <h1 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[64px] font-bold text-center mb-12">
+    <div className="max-w-360 mx-auto px-4 md:px-8 py-8 md:py-12">
+      <h1 className="font-[family-name:var(--font-moret)] text-[36px] md:text-[64px] font-bold text-center mb-8 md:mb-12">
         Our blogs
       </h1>
 
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
         {posts.map((post) => (
           <BlogCard key={post.slug} post={post} />
         ))}

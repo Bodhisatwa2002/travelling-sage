@@ -1,14 +1,16 @@
-import { categories } from "@/data/categories";
+import { getAllCategories } from "@/sanity/queries/categories";
 import CategoryCard from "@/components/CategoryCard";
 
-export default function CategoriesPage() {
+export default async function CategoriesPage() {
+  const categories = await getAllCategories();
+
   return (
-    <div className="max-w-360 mx-auto px-8 py-12">
-      <h1 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[64px] font-bold text-center mb-12">
+    <div className="max-w-360 mx-auto px-4 md:px-8 py-8 md:py-12">
+      <h1 className="font-[family-name:var(--font-moret)] text-[36px] md:text-[64px] font-bold text-center mb-8 md:mb-12">
         Categories
       </h1>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {categories.map((category) => (
           <CategoryCard key={category.slug} category={category} />
         ))}

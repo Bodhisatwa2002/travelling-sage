@@ -1,14 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Category } from "@/data/categories";
 
-interface CategoryCardProps {
-  category: Category;
+interface CardItem {
+  slug: string;
+  name: string;
+  description: string;
+  image: string;
 }
 
-export default function CategoryCard({ category }: CategoryCardProps) {
+interface CategoryCardProps {
+  category: CardItem;
+  linkPrefix?: string;
+}
+
+export default function CategoryCard({
+  category,
+  linkPrefix = "/categories",
+}: CategoryCardProps) {
   return (
-    <Link href={`/categories/${category.slug}`} className="group block">
+    <Link href={`${linkPrefix}/${category.slug}`} className="group block">
       <article className="flex gap-0 overflow-hidden">
         {/* Image */}
         <div className="relative w-1/2 min-h-[160px]">
@@ -23,7 +33,7 @@ export default function CategoryCard({ category }: CategoryCardProps) {
 
         {/* Text */}
         <div className="w-1/2 p-6 flex flex-col justify-center">
-          <h3 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[22px] font-bold mb-2">
+          <h3 className="font-[family-name:var(--font-moret)] text-[22px] font-bold mb-2">
             <span className="group-hover:bg-[#E8D5A3] transition-colors duration-300 box-decoration-clone">
               {category.name}
             </span>

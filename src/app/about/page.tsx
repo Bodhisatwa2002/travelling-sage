@@ -1,17 +1,22 @@
 import Image from "next/image";
 import { Globe, Camera, MessageCircle, Briefcase } from "lucide-react";
-import { founder, authors } from "@/data/authors";
+import { getAllAuthors, getFounder } from "@/sanity/queries/authors";
 import ContactForm from "@/components/ContactForm";
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [founder, authors] = await Promise.all([
+    getFounder(),
+    getAllAuthors(),
+  ]);
+
   return (
-    <div className="max-w-360 mx-auto px-8 py-12">
-      <div className="grid grid-cols-2 gap-16">
+    <div className="max-w-360 mx-auto px-4 md:px-8 py-8 md:py-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
         {/* Left Column */}
         <div className="space-y-12">
           {/* About Us */}
           <section>
-            <h1 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[48px] font-bold mb-6">
+            <h1 className="font-[family-name:var(--font-moret)] text-[36px] md:text-[48px] font-bold mb-6">
               About Us
             </h1>
             <div className="space-y-4 text-[15px] text-[#1A1A1A] leading-relaxed">
@@ -32,46 +37,43 @@ export default function AboutPage() {
           </section>
 
           {/* Founder */}
-          <section>
-            <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[36px] font-bold mb-6">
-              Our founder
-            </h2>
-            <div className="flex gap-6">
-              <div className="relative w-48 h-56 shrink-0 overflow-hidden">
-                <Image
-                  src={founder.image!}
-                  alt={founder.name}
-                  fill
-                  className="object-cover"
-                  sizes="192px"
-                />
+          {founder && (
+            <section>
+              <h2 className="font-[family-name:var(--font-moret)] text-[36px] font-bold mb-6">
+                Our founder
+              </h2>
+              <div className="flex flex-col sm:flex-row gap-6">
+                {founder.image && (
+                  <div className="relative w-48 h-56 shrink-0 overflow-hidden">
+                    <Image
+                      src={founder.image}
+                      alt={founder.name}
+                      fill
+                      className="object-cover"
+                      sizes="192px"
+                    />
+                  </div>
+                )}
+                <div className="space-y-3">
+                  <h3 className="font-[family-name:var(--font-moret)] text-[26px] font-bold">
+                    {founder.name}
+                  </h3>
+                  <p className="text-sm text-[#1A1A1A] leading-relaxed">
+                    {founder.bio}
+                  </p>
+                </div>
               </div>
-              <div className="space-y-3">
-                <h3 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[26px] font-bold">
-                  {founder.name}
-                </h3>
-                <p className="text-sm text-[#1A1A1A] leading-relaxed">
-                  {founder.bio}
-                </p>
-              </div>
-            </div>
-          </section>
+            </section>
+          )}
 
-          {/* Authors */}
+          {/* Author */}
           <section id="authors">
-            <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[36px] font-bold mb-6">
-              Authors
+            <h2 className="font-[family-name:var(--font-moret)] text-[36px] font-bold mb-6">
+              Author
             </h2>
-            <div className="grid grid-cols-3 gap-4">
-              {authors.map((author) => (
-                <p
-                  key={author.slug}
-                  className="text-[13px] font-semibold tracking-wide"
-                >
-                  {author.name.toUpperCase()}
-                </p>
-              ))}
-            </div>
+            <p className="text-[13px] font-semibold tracking-wide">
+              BODHISATWA CHAKRABORTY
+            </p>
           </section>
         </div>
 
@@ -79,7 +81,7 @@ export default function AboutPage() {
         <div className="space-y-12">
           {/* Contact Us */}
           <section>
-            <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[48px] font-bold mb-6">
+            <h2 className="font-[family-name:var(--font-moret)] text-[36px] md:text-[48px] font-bold mb-6">
               Contact us
             </h2>
             <ContactForm />
@@ -100,7 +102,7 @@ export default function AboutPage() {
 
           {/* Collaborate */}
           <section>
-            <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[36px] font-bold mb-4">
+            <h2 className="font-[family-name:var(--font-moret)] text-[36px] font-bold mb-4">
               Collaborate or Partner
             </h2>
             <div className="space-y-3 text-[15px] leading-relaxed">
@@ -119,7 +121,7 @@ export default function AboutPage() {
 
           {/* Careers */}
           <section>
-            <h2 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[36px] font-bold mb-4">
+            <h2 className="font-[family-name:var(--font-moret)] text-[36px] font-bold mb-4">
               Careers
             </h2>
             <p className="text-[15px] leading-relaxed">

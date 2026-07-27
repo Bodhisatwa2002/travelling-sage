@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { posts } from "@/data/posts";
-import { categories } from "@/data/categories";
+import { getAllPosts } from "@/sanity/queries/posts";
+import { getAllCategories } from "@/sanity/queries/categories";
+import { getAllDestinations } from "@/sanity/queries/destinations";
 
 function SvgConnector() {
   return (
@@ -122,25 +123,34 @@ const socialIcons = [
   { icon: XTwitterIcon, label: "X", href: "#" },
 ];
 
-export default function Footer() {
+export default async function Footer() {
+  const [destinations, categories, posts] = await Promise.all([
+    getAllDestinations(),
+    getAllCategories(),
+    getAllPosts(),
+  ]);
+
   return (
     <footer className="bg-[#060610] text-white mt-16">
       {/* Logo Area */}
       <div className="max-w-360 mx-auto px-6 pt-6">
         <p className="font-[family-name:var(--font-anton)] text-2xl font-black tracking-wider">
-          READZ™
+          Traveling Sage
         </p>
       </div>
 
       {/* Footer Columns */}
       <div className="max-w-360 mx-auto px-6 pt-5 pb-10">
-        <div className="grid grid-cols-4 gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
           {/* Destinations Column */}
           <div>
             <FooterHeading>DESTINATIONS/</FooterHeading>
-            {posts.map((post) => (
-              <FooterLink key={post.slug} href={`/blogs/${post.slug}`}>
-                {post.title.split("—")[0].trim()}
+            {destinations.map((dest) => (
+              <FooterLink
+                key={dest.slug}
+                href={`/destinations/${dest.region}/${dest.slug}`}
+              >
+                {dest.name}
               </FooterLink>
             ))}
           </div>
@@ -187,7 +197,7 @@ export default function Footer() {
 
             <FooterHeading>ABOUT/</FooterHeading>
             <FooterLink href="/about">About READZ</FooterLink>
-            <FooterLink href="/about#authors">Our authors</FooterLink>
+            <FooterLink href="/about#authors">About the author</FooterLink>
             <FooterLabel>Careers</FooterLabel>
             <FooterLabel>Privacy policy</FooterLabel>
             <FooterLabel>Terms of service</FooterLabel>
@@ -214,7 +224,7 @@ export default function Footer() {
       {/* Copyright */}
       <div className="max-w-360 mx-auto px-6 pt-2 pb-6">
         <p className="font-[family-name:var(--font-jetbrains)] text-[12px] text-[#556677]">
-          ©2026 READZ™. All rights reserved.
+          ©2026 Traveling Sage. All rights reserved.
         </p>
       </div>
     </footer>

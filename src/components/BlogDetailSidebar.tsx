@@ -1,37 +1,46 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Globe, Camera, MessageCircle } from "lucide-react";
-import { BlogPost } from "@/data/posts";
-import { authors } from "@/data/authors";
+import { BlogPost } from "@/types";
+import TableOfContents from "@/components/TableOfContents";
+import type { TocItem } from "@/components/TableOfContents";
 
 interface BlogDetailSidebarProps {
   post: BlogPost;
   featuredPost?: BlogPost;
   recentPosts: BlogPost[];
+  authorImage?: string;
+  tocItems?: TocItem[];
 }
 
 export default function BlogDetailSidebar({
   post,
   featuredPost,
   recentPosts,
+  authorImage,
+  tocItems = [],
 }: BlogDetailSidebarProps) {
-  const author = authors.find(
-    (a) => a.name.toLowerCase() === post.author.toLowerCase()
-  );
-
   return (
-    <aside className="w-[320px] shrink-0 sticky top-8 self-start space-y-0">
+    <aside className="w-full md:w-[320px] shrink-0 md:sticky md:top-8 md:self-start space-y-0">
+      {/* Table of Contents */}
+      {tocItems.length > 0 && (
+        <>
+          <TableOfContents items={tocItems} />
+          <div className="h-px bg-[#CCCCCC] my-6" />
+        </>
+      )}
+
       {/* Author Info Section */}
       <div className="space-y-4">
-        <h3 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-2xl font-bold">
+        <h3 className="font-[family-name:var(--font-moret)] text-2xl font-bold">
           Author info
         </h3>
 
         <div className="flex items-center gap-3">
-          {author?.image && (
+          {authorImage && (
             <div className="relative w-14 h-14 shrink-0 overflow-hidden rounded-full">
               <Image
-                src={author.image}
+                src={authorImage}
                 alt={post.author}
                 fill
                 className="object-cover"
@@ -40,8 +49,8 @@ export default function BlogDetailSidebar({
             </div>
           )}
           <div className="space-y-0.5">
-            <p className="text-base font-bold">{post.author}</p>
-            <p className="text-[13px] text-[#555555]">Travel Writer</p>
+            <p className="text-base font-bold">Bodhisatwa</p>
+            <p className="text-[13px] text-[#555555]">Founder & Travel Writer</p>
           </div>
         </div>
 
@@ -59,7 +68,7 @@ export default function BlogDetailSidebar({
       {featuredPost && (
         <>
           <div className="space-y-3.5 pt-4">
-            <h3 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-2xl font-bold">
+            <h3 className="font-[family-name:var(--font-moret)] text-2xl font-bold">
               Featured post
             </h3>
 
@@ -97,7 +106,7 @@ export default function BlogDetailSidebar({
 
       {/* Recent Posts Section */}
       <div className="space-y-3.5 pt-4">
-        <h3 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-2xl font-bold">
+        <h3 className="font-[family-name:var(--font-moret)] text-2xl font-bold">
           Recent post
         </h3>
 
@@ -142,7 +151,7 @@ export default function BlogDetailSidebar({
           </span>
         </div>
         <div className="absolute bottom-6 left-5">
-          <p className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[26px] font-bold text-white leading-[1.2] max-w-[200px]">
+          <p className="font-[family-name:var(--font-moret)] text-[26px] font-bold text-white leading-[1.2] max-w-[200px]">
             Explore premium travel guides
           </p>
         </div>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BlogPost } from "@/data/posts";
+import { BlogPost } from "@/types";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -43,7 +43,7 @@ export default function BlogCard({ post }: BlogCardProps) {
         </div>
 
         {/* Title */}
-        <h3 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[22px] font-bold leading-tight">
+        <h3 className="font-[family-name:var(--font-moret)] text-[18px] md:text-[22px] font-bold leading-tight">
           <span className="group-hover:bg-[#E8D5A3] group-hover:decoration-0 transition-colors duration-300 box-decoration-clone">
             {post.title}
           </span>

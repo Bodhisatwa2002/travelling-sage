@@ -1,14 +1,6 @@
-import Image from "next/image";
+import GalleryView from "@/components/GalleryView";
 
-interface GalleryImage {
-  number: string;
-  caption: string;
-  location: string;
-  image: string;
-  height: string;
-}
-
-const galleryImages: GalleryImage[] = [
+const galleryImages = [
   {
     number: "01",
     caption: "Sunrise over the ghats",
@@ -99,95 +91,21 @@ const galleryImages: GalleryImage[] = [
   },
 ];
 
-// First row: 2 images, remaining rows: 3 each
-function buildRows(images: GalleryImage[]) {
-  const rows: GalleryImage[][] = [];
-  if (images.length > 0) {
-    rows.push(images.slice(0, 2));
-  }
-  for (let i = 2; i < images.length; i += 3) {
-    rows.push(images.slice(i, i + 3));
-  }
-  return rows;
-}
-
-const rows = buildRows(galleryImages);
-
-function GalleryCard({ item }: { item: GalleryImage }) {
-  return (
-    <div className="group border border-[#CCCCCC] cursor-pointer flex-1">
-      {/* Card Header */}
-      <div className="flex items-center justify-between px-3.5 py-2.5">
-        <div className="flex gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full border-[1.5px] border-[#999999]" />
-          <span className="w-2.5 h-2.5 rounded-full border-[1.5px] border-[#999999]" />
-          <span className="w-2.5 h-2.5 rounded-full border-[1.5px] border-[#999999]" />
-        </div>
-        <div className="flex-1 h-px border-t border-dashed border-[#AAAAAA] mx-4" />
-        <span className="text-[11px] font-medium tracking-wide">
-          [{item.number}]
-        </span>
-      </div>
-
-      {/* Image */}
-      <div className="px-3">
-        <div className={`relative w-full ${item.height} overflow-hidden`}>
-          <Image
-            src={item.image}
-            alt={item.caption}
-            fill
-            className="object-cover group-hover:grayscale transition-all duration-500"
-            sizes="(max-width: 768px) 100vw, 500px"
-          />
-        </div>
-      </div>
-
-      {/* Caption Row */}
-      <div className="flex items-center justify-between px-3.5 py-2.5">
-        <span className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[16px] font-semibold">
-          <span className="group-hover:bg-[#E8D5A3] transition-colors duration-300 box-decoration-clone">
-            {item.caption}
-          </span>
-        </span>
-        <span className="text-[12px] text-[#555555] italic">
-          {item.location}
-        </span>
-      </div>
-    </div>
-  );
-}
-
 export default function GalleryPage() {
   return (
-    <div className="max-w-360 mx-auto">
+    <div className="max-w-360 mx-auto px-4 md:px-8 py-8 md:py-12">
       {/* Header */}
-      <div className="flex flex-col items-center gap-4 px-10 pt-16 pb-5">
-        <h1 className="font-[family-name:var(--font-Plus_Jakarta_Sans)] text-[64px] font-bold">
+      <div className="mb-8 md:mb-12">
+        <h1 className="font-[family-name:var(--font-moret)] text-[36px] md:text-[64px] font-bold text-center">
           Gallery
         </h1>
-        <p className="text-[16px] text-[#555555] leading-relaxed text-center max-w-[600px]">
+        <p className="text-[16px] text-[#555555] leading-relaxed text-center max-w-[600px] mx-auto mt-4">
           A curated collection of moments captured across India — from sacred
           ghats and mountain trails to colonial streets and tribal festivals.
         </p>
       </div>
 
-      {/* Separator */}
-      <div className="flex items-center gap-3 px-9">
-        <div className="w-2 h-2 border-[1.5px] border-[#1A1A1A] rotate-45" />
-        <div className="flex-1 h-px bg-[#1A1A1A]" />
-        <div className="w-2 h-2 border-[1.5px] border-[#1A1A1A] rotate-45" />
-      </div>
-
-      {/* Gallery Grid */}
-      <div className="px-5 pt-6 pb-12 space-y-5">
-        {rows.map((row, rowIndex) => (
-          <div key={rowIndex} className="flex gap-5">
-            {row.map((item) => (
-              <GalleryCard key={item.number} item={item} />
-            ))}
-          </div>
-        ))}
-      </div>
+      <GalleryView images={galleryImages} />
     </div>
   );
 }

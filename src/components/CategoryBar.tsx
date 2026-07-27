@@ -1,35 +1,33 @@
 import Link from "next/link";
 import {
   Mountain,
-  Landmark,
-  Palette,
+  Waves,
   Footprints,
-  UtensilsCrossed,
-  Sparkles,
-  BookOpen,
+  Star,
+  Map,
 } from "lucide-react";
-import { categories } from "@/data/categories";
+import { getAllCategories } from "@/sanity/queries/categories";
 
 const iconMap: Record<string, React.ReactNode> = {
-  adventure: <Mountain size={16} />,
-  heritage: <Landmark size={16} />,
-  culture: <Palette size={16} />,
-  trekking: <Footprints size={16} />,
-  food: <UtensilsCrossed size={16} />,
-  spiritual: <Sparkles size={16} />,
-  guides: <BookOpen size={16} />,
+  mountains: <Mountain size={16} />,
+  beaches: <Waves size={16} />,
+  hikes: <Footprints size={16} />,
+  "bucket-list": <Star size={16} />,
+  itineraries: <Map size={16} />,
 };
 
-export default function CategoryBar() {
+export default async function CategoryBar() {
+  const categories = await getAllCategories();
+
   return (
     <div className="bg-[#1A1A1A] text-white">
-      <div className="max-w-360 mx-auto flex items-center justify-center">
+      <div className="max-w-360 mx-auto flex items-center justify-start md:justify-center overflow-x-auto scrollbar-hide">
         {categories.map((cat, i) => (
-          <div key={cat.slug} className="flex items-center">
+          <div key={cat.slug} className="flex items-center shrink-0">
             <div className="w-px h-10 bg-white/20" />
             <Link
               href={`/categories`}
-              className="flex items-center gap-2 px-6 py-3 text-[13px] font-semibold tracking-wide hover:bg-white/10 transition-colors uppercase"
+              className="flex items-center gap-2 px-4 md:px-6 py-3 text-[12px] md:text-[13px] font-semibold tracking-wide hover:bg-white/10 transition-colors uppercase whitespace-nowrap"
             >
               {iconMap[cat.slug]}
               {cat.name}
