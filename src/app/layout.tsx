@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans, JetBrains_Mono, Anton, Press_Start_2P } from "next/font/google";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -69,6 +70,7 @@ export default async function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <FooterAnimation />
+        <Analytics />
       </body>
     </html>
   );
