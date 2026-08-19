@@ -65,7 +65,7 @@ export default async function RootLayout({
       lang="en"
       className={`${inter.variable} ${plus_Jakarta_Sans.variable} ${anton.variable} ${jetbrainsMono.variable} ${pressStart2P.variable} ${moret.variable} antialiased`}
     >
-      <body className="min-h-screen flex flex-col bg-[#EBEBEB] text-[#1A1A1A] font-[family-name:var(--font-inter)]">
+      <body suppressHydrationWarning className="min-h-screen flex flex-col bg-[#EBEBEB] text-[#1A1A1A] font-[family-name:var(--font-inter)]">
         <Navbar regions={regions} destinations={destinations} />
         <main className="flex-1">{children}</main>
         <Footer />

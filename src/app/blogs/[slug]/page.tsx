@@ -10,7 +10,9 @@ import ShareButtons from "@/components/ShareButtons";
 import ReadingProgress from "@/components/ReadingProgress";
 import RelatedPosts from "@/components/RelatedPosts";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import TableOfContents from "@/components/TableOfContents";
 import type { TocItem } from "@/components/TableOfContents";
+import MobileTableOfContents from "@/components/MobileTableOfContents";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travellingsage.com";
 
@@ -176,6 +178,13 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
             />
           </div>
 
+          {/* Mobile Table of Contents */}
+          {tocItems.length > 0 && (
+            <div className="md:hidden pt-5 pb-2">
+              <MobileTableOfContents items={tocItems} />
+            </div>
+          )}
+
           {/* Article Body */}
           <article className="pt-10 space-y-5">
             {post.content ? (
@@ -195,6 +204,24 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
                       {p}
                     </p>
                   ))}
+                  {section.images?.map((img, m) => (
+                    <figure key={`img-${m}`} className="my-6">
+                      <div className="relative w-full h-[300px] md:h-[420px] overflow-hidden rounded-lg">
+                        <Image
+                          src={img.url}
+                          alt={img.alt || section.heading}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 800px"
+                        />
+                      </div>
+                      {img.caption && (
+                        <figcaption className="text-center text-sm text-[#777777] mt-2 italic">
+                          {img.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  ))}
                   {section.subSections?.map((sub, k) => (
                     <div key={k}>
                       <div className="h-4" />
@@ -211,6 +238,24 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
                         >
                           {p}
                         </p>
+                      ))}
+                      {sub.images?.map((img, m) => (
+                        <figure key={`img-${m}`} className="my-6">
+                          <div className="relative w-full h-[300px] md:h-[420px] overflow-hidden rounded-lg">
+                            <Image
+                              src={img.url}
+                              alt={img.alt || sub.heading}
+                              fill
+                              className="object-cover"
+                              sizes="(max-width: 768px) 100vw, 800px"
+                            />
+                          </div>
+                          {img.caption && (
+                            <figcaption className="text-center text-sm text-[#777777] mt-2 italic">
+                              {img.caption}
+                            </figcaption>
+                          )}
+                        </figure>
                       ))}
                     </div>
                   ))}

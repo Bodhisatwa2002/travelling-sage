@@ -122,6 +122,36 @@ export const post = defineType({
               of: [{ type: "text" }],
             }),
             defineField({
+              name: "images",
+              title: "Images",
+              type: "array",
+              of: [
+                {
+                  type: "object",
+                  name: "inlineImage",
+                  title: "Image",
+                  fields: [
+                    defineField({
+                      name: "url",
+                      title: "Image URL",
+                      type: "url",
+                      validation: (rule) => rule.required(),
+                    }),
+                    defineField({
+                      name: "alt",
+                      title: "Alt Text",
+                      type: "string",
+                    }),
+                    defineField({
+                      name: "caption",
+                      title: "Caption",
+                      type: "string",
+                    }),
+                  ],
+                },
+              ],
+            }),
+            defineField({
               name: "subSections",
               title: "Sub Sections",
               type: "array",
@@ -142,6 +172,36 @@ export const post = defineType({
                       title: "Paragraphs",
                       type: "array",
                       of: [{ type: "text" }],
+                    }),
+                    defineField({
+                      name: "images",
+                      title: "Images",
+                      type: "array",
+                      of: [
+                        {
+                          type: "object",
+                          name: "subSectionImage",
+                          title: "Image",
+                          fields: [
+                            defineField({
+                              name: "url",
+                              title: "Image URL",
+                              type: "url",
+                              validation: (rule) => rule.required(),
+                            }),
+                            defineField({
+                              name: "alt",
+                              title: "Alt Text",
+                              type: "string",
+                            }),
+                            defineField({
+                              name: "caption",
+                              title: "Caption",
+                              type: "string",
+                            }),
+                          ],
+                        },
+                      ],
                     }),
                   ],
                 },

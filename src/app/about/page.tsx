@@ -21,11 +21,11 @@ export default async function AboutPage() {
             </h1>
             <div className="space-y-4 text-[15px] text-[#1A1A1A] leading-relaxed">
               <p>
-                Welcome to READZ, your companion for exploring India&apos;s most
-                extraordinary destinations. From the ghats of Banaras to the
-                mountain trails of Uttarakhand, we bring you stories that go
-                beyond the guidebook — the kind written by travelers who have
-                walked the paths they describe.
+                Welcome to Travelling Sage, your companion for exploring
+                India&apos;s most extraordinary destinations. From the ghats of
+                Banaras to the mountain trails of Uttarakhand, we bring you
+                stories that go beyond the guidebook — the kind written by
+                travelers who have walked the paths they describe.
               </p>
               <p>
                 We&apos;re passionate about slow, meaningful travel. Our writers
@@ -88,7 +88,7 @@ export default async function AboutPage() {
 
             <div className="mt-8 space-y-2 text-sm">
               <p>New Delhi, Hauz Khas Village, 110016</p>
-              <p>hello@readztravels.com</p>
+              <p>hello@travellingsage.com</p>
               <p>+91 98765 43210</p>
             </div>
 
@@ -100,35 +100,35 @@ export default async function AboutPage() {
             </div>
           </section>
 
-          {/* Collaborate */}
-          <section>
+          {/* Collaborate — commented out for now */}
+          {/* <section>
             <h2 className="font-[family-name:var(--font-moret)] text-[36px] font-bold mb-4">
               Collaborate or Partner
             </h2>
             <div className="space-y-3 text-[15px] leading-relaxed">
               <p>
-                Interested in joining the READZ team, exploring partnerships, or
-                sharing a travel story? We&apos;d love to connect.
+                Interested in joining the Travelling Sage team, exploring
+                partnerships, or sharing a travel story? We&apos;d love to connect.
               </p>
               <p>
                 We don&apos;t run sponsored travel pieces or banner ads, but
                 we&apos;re always open to meaningful collaborations with fellow
                 travelers and storytellers. Reach out anytime at
-                partnerships@readztravels.com
+                partnerships@travellingsage.com
               </p>
             </div>
-          </section>
+          </section> */}
 
-          {/* Careers */}
-          <section>
+          {/* Careers — commented out for now */}
+          {/* <section>
             <h2 className="font-[family-name:var(--font-moret)] text-[36px] font-bold mb-4">
               Careers
             </h2>
             <p className="text-[15px] leading-relaxed">
-              Love writing about travel? Join the READZ team! Apply now at
-              careers@readztravels.com
+              Love writing about travel? Join the Travelling Sage team! Apply
+              now at careers@travellingsage.com
             </p>
-          </section>
+          </section> */}
         </div>
       </div>
     </div>

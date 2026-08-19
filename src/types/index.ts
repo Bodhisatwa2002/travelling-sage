@@ -16,7 +16,12 @@ export interface BlogPost {
   content?: {
     heading: string;
     paragraphs: string[];
-    subSections?: { heading: string; paragraphs: string[] }[];
+    images?: { url: string; alt?: string; caption?: string }[];
+    subSections?: {
+      heading: string;
+      paragraphs: string[];
+      images?: { url: string; alt?: string; caption?: string }[];
+    }[];
   }[];
 }
 

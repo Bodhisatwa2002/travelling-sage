@@ -196,7 +196,7 @@ export default async function Footer() {
             <DottedSeparator />
 
             <FooterHeading>ABOUT/</FooterHeading>
-            <FooterLink href="/about">About READZ</FooterLink>
+            <FooterLink href="/about">About Travelling Sage</FooterLink>
             <FooterLink href="/about#authors">About the author</FooterLink>
             <FooterLabel>Careers</FooterLabel>
             <FooterLabel>Privacy policy</FooterLabel>

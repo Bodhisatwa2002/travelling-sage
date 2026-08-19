@@ -21,8 +21,8 @@ export default function AboutSection() {
           <div className="px-2.5 pb-2.5">
             <div className="relative w-full h-[250px] md:h-[440px] overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80"
-                alt="About READZ"
+                src="/images/founder.jpg"
+                alt="About Travelling Sage"
                 fill
                 className="object-cover"
                 sizes="600px"
@@ -53,9 +53,9 @@ export default function AboutSection() {
         {/* Founder Info */}
         <div className="text-center space-y-1">
           <p className="font-[family-name:var(--font-moret)] text-xl font-semibold">
-            Ananya Deshpande
+            Bodhisatwa Chakraborty
           </p>
-          <p className="text-sm text-[#555555]">Founder & Editor-in-Chief</p>
+          <p className="text-sm text-[#555555]">Founder & Travel Writer</p>
         </div>
       </div>
     </section>

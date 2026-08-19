@@ -19,9 +19,11 @@ const postFields = `
   content[] {
     heading,
     paragraphs,
+    images[] { url, alt, caption },
     subSections[] {
       heading,
-      paragraphs
+      paragraphs,
+      images[] { url, alt, caption }
     }
   }
 `;

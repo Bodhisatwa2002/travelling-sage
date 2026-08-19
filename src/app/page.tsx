@@ -14,7 +14,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travellingsage.com
 
 export default async function Home() {
   const posts = await getAllPosts();
-  const featuredPost = posts.find((p) => p.issueNumber === "No. 005")!;
+  const featuredPost = posts.find((p) => p.featured) ?? posts[0];
   const recentPosts = posts.slice(0, 3);
 
   return (
@@ -29,7 +29,7 @@ export default async function Home() {
 
       <CategoryBar />
 
-      <HeroSection featuredPost={featuredPost} />
+      {featuredPost && <HeroSection featuredPost={featuredPost} />}
 
       <RecentBlogsSection posts={recentPosts} />
 
