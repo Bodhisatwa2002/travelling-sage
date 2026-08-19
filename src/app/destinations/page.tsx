@@ -1,5 +1,24 @@
+import type { Metadata } from "next";
 import { getAllRegions, getDestinationsByRegion } from "@/sanity/queries/destinations";
 import CategoryCard from "@/components/CategoryCard";
+
+export const metadata: Metadata = {
+  title: "Destinations — Explore India's Best Travel Spots",
+  description:
+    "Discover India region by region — from the Himalayas of North India to the beaches of South India and the unexplored Northeast.",
+  openGraph: {
+    title: "Destinations — Explore India's Best Travel Spots",
+    description:
+      "Discover India region by region — from the Himalayas to Southern beaches and the unexplored Northeast.",
+    url: "/destinations",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Destinations — Explore India's Best Travel Spots",
+    description:
+      "Discover India region by region — from the Himalayas to Southern beaches and the unexplored Northeast.",
+  },
+};
 
 export default async function DestinationsPage() {
   const regions = await getAllRegions();

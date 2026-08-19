@@ -10,7 +10,7 @@ import PodcastSection from "@/components/PodcastSection";
 import { getAllPosts } from "@/sanity/queries/posts";
 import { WebSiteJsonLd } from "@/components/JsonLd";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travellingsage.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travelingsage.vercel.app";
 
 export default async function Home() {
   const posts = await getAllPosts();

@@ -8,7 +8,7 @@ interface ShareButtonsProps {
   slug: string;
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travellingsage.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travelingsage.vercel.app";
 
 export default function ShareButtons({ title, slug }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);

@@ -1,7 +1,26 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Globe, Camera, MessageCircle, Briefcase } from "lucide-react";
 import { getAllAuthors, getFounder } from "@/sanity/queries/authors";
 import ContactForm from "@/components/ContactForm";
+
+export const metadata: Metadata = {
+  title: "About Us — The Story Behind Traveling Sage",
+  description:
+    "Meet the team behind Traveling Sage. We write travel stories that go beyond the guidebook — by travelers who've walked the paths they describe.",
+  openGraph: {
+    title: "About Us — The Story Behind Traveling Sage",
+    description:
+      "Meet the team behind Traveling Sage. Travel stories that go beyond the guidebook.",
+    url: "/about",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Us — The Story Behind Traveling Sage",
+    description:
+      "Meet the team behind Traveling Sage. Travel stories that go beyond the guidebook.",
+  },
+};
 
 export default async function AboutPage() {
   const [founder, authors] = await Promise.all([

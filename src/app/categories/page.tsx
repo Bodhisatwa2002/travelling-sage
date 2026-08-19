@@ -1,5 +1,24 @@
+import type { Metadata } from "next";
 import { getAllCategories } from "@/sanity/queries/categories";
 import CategoryCard from "@/components/CategoryCard";
+
+export const metadata: Metadata = {
+  title: "Categories — Mountains, Beaches, Hikes & More",
+  description:
+    "Explore travel stories by category — mountains, beaches, hikes, bucket list adventures, and curated itineraries across India.",
+  openGraph: {
+    title: "Categories — Mountains, Beaches, Hikes & More",
+    description:
+      "Explore travel stories by category — mountains, beaches, hikes, bucket list adventures, and curated itineraries.",
+    url: "/categories",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Categories — Mountains, Beaches, Hikes & More",
+    description:
+      "Explore travel stories by category — mountains, beaches, hikes, bucket list adventures, and curated itineraries.",
+  },
+};
 
 export default async function CategoriesPage() {
   const categories = await getAllCategories();
