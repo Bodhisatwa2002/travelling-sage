@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Search, Mail, Menu, X } from "lucide-react";
@@ -17,8 +17,6 @@ export default function Navbar({ regions, destinations }: NavbarProps) {
   const pathname = usePathname();
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const closeSearch = useCallback(() => setSearchOpen(false), []);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -208,7 +206,7 @@ export default function Navbar({ regions, destinations }: NavbarProps) {
         </div>
       </div>
 
-      <SearchModal isOpen={searchOpen} onClose={closeSearch} />
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

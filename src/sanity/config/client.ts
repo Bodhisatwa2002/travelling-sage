@@ -7,3 +7,5 @@ export const client = createClient({
   apiVersion,
   useCdn,
 });
+
+export const ISR = { next: { revalidate: 3600 } } as const;

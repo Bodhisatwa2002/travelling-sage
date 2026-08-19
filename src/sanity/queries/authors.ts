@@ -1,4 +1,4 @@
-import { sanityFetch } from "../lib/fetch";
+import { client, ISR } from "../config/client";
 import type { Author } from "@/types";
 
 const authorFields = `
@@ -9,14 +9,18 @@ const authorFields = `
   image
 `;
 
-export const allAuthorsQuery = `*[_type == "author" && !isFounder] | order(name asc) { ${authorFields} }`;
-
-export const founderQuery = `*[_type == "author" && isFounder][0] { ${authorFields} }`;
-
 export async function getAllAuthors(): Promise<Author[]> {
-  return sanityFetch<Author[]>(allAuthorsQuery);
+  return client.fetch<Author[]>(
+    `*[_type == "author" && !isFounder] | order(name asc) { ${authorFields} }`,
+    {},
+    ISR,
+  );
 }
 
 export async function getFounder(): Promise<Author | null> {
-  return sanityFetch<Author | null>(founderQuery);
+  return client.fetch<Author | null>(
+    `*[_type == "author" && isFounder][0] { ${authorFields} }`,
+    {},
+    ISR,
+  );
 }

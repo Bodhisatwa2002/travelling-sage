@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Globe, Camera, MessageCircle } from "lucide-react";
 import { BlogPost } from "@/types";
 import TableOfContents from "@/components/TableOfContents";
-import type { TocItem } from "@/components/TableOfContents";
+import type { TocItem } from "@/hooks/useTocObserver";
 
 interface BlogDetailSidebarProps {
   post: BlogPost;
