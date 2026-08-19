@@ -11,7 +11,7 @@ import ReadingProgress from "@/components/ReadingProgress";
 import RelatedPosts from "@/components/RelatedPosts";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import TableOfContents from "@/components/TableOfContents";
-import type { TocItem } from "@/components/TableOfContents";
+import type { TocItem } from "@/hooks/useTocObserver";
 import MobileTableOfContents from "@/components/MobileTableOfContents";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travelingsage.vercel.app";

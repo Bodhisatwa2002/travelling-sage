@@ -1,4 +1,4 @@
-import { sanityFetch } from "../lib/fetch";
+import { client, ISR } from "../config/client";
 import type { Destination, Region } from "@/types";
 
 const regionFields = `
@@ -14,38 +14,42 @@ const destinationFields = `
   "region": region->slug.current
 `;
 
-export const allRegionsQuery = `*[_type == "region"] | order(name asc) { ${regionFields} }`;
-
-export const allDestinationsQuery = `*[_type == "destination"] | order(name asc) { ${destinationFields} }`;
-
-export const destinationsByRegionQuery = `*[_type == "destination" && region->slug.current == $regionSlug] | order(name asc) { ${destinationFields} }`;
-
-export const destinationBySlugQuery = `*[_type == "destination" && slug.current == $slug][0] { ${destinationFields} }`;
-
-export const regionBySlugQuery = `*[_type == "region" && slug.current == $slug][0] { ${regionFields} }`;
-
 export async function getAllRegions(): Promise<Region[]> {
-  return sanityFetch<Region[]>(allRegionsQuery);
+  return client.fetch<Region[]>(
+    `*[_type == "region"] | order(name asc) { ${regionFields} }`,
+    {},
+    ISR,
+  );
 }
 
 export async function getAllDestinations(): Promise<Destination[]> {
-  return sanityFetch<Destination[]>(allDestinationsQuery);
+  return client.fetch<Destination[]>(
+    `*[_type == "destination"] | order(name asc) { ${destinationFields} }`,
+    {},
+    ISR,
+  );
 }
 
-export async function getDestinationsByRegion(
-  regionSlug: string,
-): Promise<Destination[]> {
-  return sanityFetch<Destination[]>(destinationsByRegionQuery, { regionSlug });
+export async function getDestinationsByRegion(regionSlug: string): Promise<Destination[]> {
+  return client.fetch<Destination[]>(
+    `*[_type == "destination" && region->slug.current == $regionSlug] | order(name asc) { ${destinationFields} }`,
+    { regionSlug },
+    ISR,
+  );
 }
 
-export async function getDestinationBySlug(
-  slug: string,
-): Promise<Destination | null> {
-  return sanityFetch<Destination | null>(destinationBySlugQuery, { slug });
+export async function getDestinationBySlug(slug: string): Promise<Destination | null> {
+  return client.fetch<Destination | null>(
+    `*[_type == "destination" && slug.current == $slug][0] { ${destinationFields} }`,
+    { slug },
+    ISR,
+  );
 }
 
-export async function getRegionBySlug(
-  slug: string,
-): Promise<Region | null> {
-  return sanityFetch<Region | null>(regionBySlugQuery, { slug });
+export async function getRegionBySlug(slug: string): Promise<Region | null> {
+  return client.fetch<Region | null>(
+    `*[_type == "region" && slug.current == $slug][0] { ${regionFields} }`,
+    { slug },
+    ISR,
+  );
 }

@@ -1,4 +1,4 @@
-import { sanityFetch } from "../lib/fetch";
+import { client, ISR } from "../config/client";
 import type { BlogPost } from "@/types";
 
 const postFields = `
@@ -28,38 +28,42 @@ const postFields = `
   }
 `;
 
-export const allPostsQuery = `*[_type == "post"] | order(issueNumber desc) { ${postFields} }`;
-
-export const postBySlugQuery = `*[_type == "post" && slug.current == $slug][0] { ${postFields} }`;
-
-export const postsByCategoryQuery = `*[_type == "post" && category->name == $category] | order(issueNumber desc) { ${postFields} }`;
-
-export const postsByDestinationQuery = `*[_type == "post" && destination->slug.current == $destinationSlug] | order(issueNumber desc) { ${postFields} }`;
-
-export const allPostSlugsQuery = `*[_type == "post"]{ "slug": slug.current }`;
-
 export async function getAllPosts(): Promise<BlogPost[]> {
-  return sanityFetch<BlogPost[]>(allPostsQuery);
+  return client.fetch<BlogPost[]>(
+    `*[_type == "post"] | order(issueNumber desc) { ${postFields} }`,
+    {},
+    ISR,
+  );
 }
 
-export async function getPostBySlug(
-  slug: string,
-): Promise<BlogPost | null> {
-  return sanityFetch<BlogPost | null>(postBySlugQuery, { slug });
+export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+  return client.fetch<BlogPost | null>(
+    `*[_type == "post" && slug.current == $slug][0] { ${postFields} }`,
+    { slug },
+    ISR,
+  );
 }
 
-export async function getPostsByCategory(
-  category: string,
-): Promise<BlogPost[]> {
-  return sanityFetch<BlogPost[]>(postsByCategoryQuery, { category });
+export async function getPostsByCategory(category: string): Promise<BlogPost[]> {
+  return client.fetch<BlogPost[]>(
+    `*[_type == "post" && category->name == $category] | order(issueNumber desc) { ${postFields} }`,
+    { category },
+    ISR,
+  );
 }
 
-export async function getPostsByDestination(
-  destinationSlug: string,
-): Promise<BlogPost[]> {
-  return sanityFetch<BlogPost[]>(postsByDestinationQuery, { destinationSlug });
+export async function getPostsByDestination(destinationSlug: string): Promise<BlogPost[]> {
+  return client.fetch<BlogPost[]>(
+    `*[_type == "post" && destination->slug.current == $destinationSlug] | order(issueNumber desc) { ${postFields} }`,
+    { destinationSlug },
+    ISR,
+  );
 }
 
 export async function getAllPostSlugs(): Promise<{ slug: string }[]> {
-  return sanityFetch<{ slug: string }[]>(allPostSlugsQuery);
+  return client.fetch<{ slug: string }[]>(
+    `*[_type == "post"]{ "slug": slug.current }`,
+    {},
+    ISR,
+  );
 }
