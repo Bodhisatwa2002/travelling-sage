@@ -1,4 +1,23 @@
+import type { Metadata } from "next";
 import GalleryView from "@/components/GalleryView";
+
+export const metadata: Metadata = {
+  title: "Gallery — India Through Our Lens",
+  description:
+    "A visual journey through India — sunrises over ghats, Himalayan peaks, coastal towns, and vibrant festivals captured by Traveling Sage.",
+  openGraph: {
+    title: "Gallery — India Through Our Lens",
+    description:
+      "A visual journey through India — sunrises over ghats, Himalayan peaks, coastal towns, and vibrant festivals.",
+    url: "/gallery",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gallery — India Through Our Lens",
+    description:
+      "A visual journey through India — sunrises over ghats, Himalayan peaks, coastal towns, and vibrant festivals.",
+  },
+};
 
 const galleryImages = [
   {

@@ -1,5 +1,24 @@
+import type { Metadata } from "next";
 import { getAllPosts } from "@/sanity/queries/posts";
 import BlogCard from "@/components/BlogCard";
+
+export const metadata: Metadata = {
+  title: "Blog — Travel Stories & Guides from Across India",
+  description:
+    "Browse all travel stories, destination guides, and itineraries from Traveling Sage. Discover hidden gems and offbeat trails across India.",
+  openGraph: {
+    title: "Blog — Travel Stories & Guides from Across India",
+    description:
+      "Browse all travel stories, destination guides, and itineraries from Traveling Sage.",
+    url: "/blogs",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog — Travel Stories & Guides from Across India",
+    description:
+      "Browse all travel stories, destination guides, and itineraries from Traveling Sage.",
+  },
+};
 
 export default async function BlogsPage() {
   const posts = await getAllPosts();

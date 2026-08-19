@@ -14,7 +14,7 @@ import TableOfContents from "@/components/TableOfContents";
 import type { TocItem } from "@/components/TableOfContents";
 import MobileTableOfContents from "@/components/MobileTableOfContents";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travellingsage.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travelingsage.vercel.app";
 
 function slugify(text: string): string {
   return text

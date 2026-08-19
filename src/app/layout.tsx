@@ -44,10 +44,52 @@ const moret = localFont({
   display: "swap",
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travelingsage.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Traveling Sage - A Modern Magazine Travellers",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Traveling Sage — India Travel Stories, Guides & Itineraries",
+    template: "%s | Traveling Sage",
+  },
   description:
-    "Dive into well-crafted stories, interviews, and guides designed to inform, inspire, and entertain.",
+    "Discover India's most captivating destinations — from ancient ghats to Himalayan trails. Well-crafted travel stories, guides, and itineraries by travelers who've walked the path.",
+  keywords: [
+    "India travel blog",
+    "travel stories India",
+    "Himalayan trails",
+    "Indian destinations",
+    "travel guide India",
+    "backpacking India",
+  ],
+  authors: [{ name: "Traveling Sage" }],
+  creator: "Traveling Sage",
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    siteName: "Traveling Sage",
+    title: "Traveling Sage — India Travel Stories, Guides & Itineraries",
+    description:
+      "Discover India's most captivating destinations — from ancient ghats to Himalayan trails. Well-crafted travel stories, guides, and itineraries.",
+    url: SITE_URL,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Traveling Sage — India Travel Stories, Guides & Itineraries",
+    description:
+      "Discover India's most captivating destinations — from ancient ghats to Himalayan trails.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default async function RootLayout({
