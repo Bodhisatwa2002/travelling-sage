@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BlogPost } from "@/types";
+import SubscribeInput from "@/components/SubscribeInput";
 
 interface HeroSectionProps {
   featuredPost: BlogPost;
@@ -39,16 +40,7 @@ export default function HeroSection({ featuredPost }: HeroSectionProps) {
               </div>
             </div>
 
-            <div className="flex gap-0">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 border border-[#CCCCCC] bg-white px-4 py-3 text-sm placeholder:text-[#AAAAAA] focus:outline-none focus:border-[#1A1A1A]"
-              />
-              <button className="bg-[#1A1A1A] text-white px-6 py-3 text-xs font-bold tracking-wider hover:bg-[#333] transition-colors">
-                SUBSCRIBE
-              </button>
-            </div>
+            <SubscribeInput />
           </div>
         </div>
 

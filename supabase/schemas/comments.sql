@@ -1,0 +1,24 @@
+-- Schema reference for public.comments (documentation only, not executed)
+-- Migration: 20260822000000_content_tables.sql
+
+-- Table: public.comments
+-- Columns:
+--   id         uuid        PK, default gen_random_uuid()
+--   name       text        not null
+--   message    text        not null
+--   post_id    uuid        not null, FK -> public.posts(id)
+--   approved   boolean     not null, default false
+--   created_at timestamptz not null, default now()
+--
+-- Indexes:
+--   idx_comments_post on post_id
+--
+-- RLS: enabled
+-- Grants:
+--   anon: SELECT, INSERT
+--   authenticated: SELECT
+--   service_role: ALL
+-- Policies:
+--   SELECT: anyone, but only where approved = true
+--   INSERT: anon (public can submit comments)
+--   ALL: authenticated + is_admin() (admin manage/approve)

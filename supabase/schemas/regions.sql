@@ -1,0 +1,16 @@
+-- Schema reference for public.regions (documentation only, not executed)
+-- Migration: 20260822000000_content_tables.sql
+
+-- Table: public.regions
+-- Columns:
+--   id   uuid  PK, default gen_random_uuid()
+--   name text  not null
+--   slug text  not null, unique
+--
+-- RLS: enabled
+-- Grants:
+--   anon, authenticated: SELECT
+--   service_role: ALL
+-- Policies:
+--   SELECT: anyone (public read)
+--   ALL: authenticated + is_admin() (admin write)

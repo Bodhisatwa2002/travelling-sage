@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { getAllDestinations, getDestinationBySlug, getRegionBySlug } from "@/sanity/queries/destinations";
-import { getPostsByDestination } from "@/sanity/queries/posts";
+import { getAllDestinations, getDestinationBySlug, getRegionBySlug } from "@/lib/queries/destinations";
+import { getPostsByDestination } from "@/lib/queries/posts";
 import BlogCard from "@/components/BlogCard";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 

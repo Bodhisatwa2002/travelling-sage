@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { getAllRegions, getDestinationsByRegion, getRegionBySlug } from "@/sanity/queries/destinations";
+import { getAllRegions, getDestinationsByRegion, getRegionBySlug } from "@/lib/queries/destinations";
 import CategoryCard from "@/components/CategoryCard";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travelingsage.vercel.app";

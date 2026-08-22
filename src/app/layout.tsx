@@ -6,7 +6,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FooterAnimation from "@/components/FooterAnimation";
-import { getAllRegions, getAllDestinations } from "@/sanity/queries/destinations";
+import { getAllRegions, getAllDestinations } from "@/lib/queries/destinations";
+import { createClient } from "@/lib/supabase/server";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -43,6 +44,8 @@ const moret = localFont({
   variable: "--font-moret",
   display: "swap",
 });
+
+export const revalidate = 3600;
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travelingsage.vercel.app";
 
@@ -97,10 +100,22 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [regions, destinations] = await Promise.all([
+  const supabase = await createClient();
+  const [regions, destinations, { data: { user } }] = await Promise.all([
     getAllRegions(),
     getAllDestinations(),
+    supabase.auth.getUser(),
   ]);
+
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+    isAdmin = profile?.role === "admin";
+  }
 
   return (
     <html
@@ -108,7 +123,7 @@ export default async function RootLayout({
       className={`${inter.variable} ${plus_Jakarta_Sans.variable} ${anton.variable} ${jetbrainsMono.variable} ${pressStart2P.variable} ${moret.variable} antialiased`}
     >
       <body suppressHydrationWarning className="min-h-screen flex flex-col bg-[#EBEBEB] text-[#1A1A1A] font-[family-name:var(--font-inter)]">
-        <Navbar regions={regions} destinations={destinations} />
+        <Navbar regions={regions} destinations={destinations} user={user} isAdmin={isAdmin} />
         <main className="flex-1">{children}</main>
         <Footer />
         <FooterAnimation />

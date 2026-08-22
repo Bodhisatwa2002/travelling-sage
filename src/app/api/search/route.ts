@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAllPosts } from "@/sanity/queries/posts";
+import { getAllPosts } from "@/lib/queries/posts";
 
 export async function GET(request: NextRequest) {
   const query = request.nextUrl.searchParams.get("q");

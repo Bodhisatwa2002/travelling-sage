@@ -16,7 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run dev          # Start dev server (Next.js 16, port 3000)
+npm run dev -- -p 3001            # Start dev server (Next.js 16, port 3001)
 npm run build        # Production build
 npm run lint         # ESLint (next/core-web-vitals + TypeScript)
 npx tsx scripts/<name>.ts  # Run Sanity upload/migration scripts
@@ -159,6 +159,39 @@ When the `/travelling-sage-seo-writer` skill is used to write a blog post, **alw
   - `subSections` (array of `{heading, paragraphs, images}`)
 - **Reference IDs follow pattern:** `category-<slug>`, `destination-<slug>`, `author-<slug>`
 - **Post IDs follow pattern:** `post-<slug>`
+
+## Authentication and Supabase
+
+- Browser and session clients use only `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
+- `SUPABASE_SERVICE_ROLE_KEY` and `DATABASE_URL` are server-only. Never expose them through `NEXT_PUBLIC_*`, serialized props, logs, or browser bundles.
+- Use `supabase.auth.getUser()` for server authorization; do not authorize from unverified client session data.
+- Every tenant-owned table must have a workspace boundary and RLS. Add member/admin policies appropriate to each operation and test isolation.
+- Once a migration is shared or deployed, add a new forward migration rather than rewriting migration history. Use timestamp-prefixed SQL files in `supabase/migrations/`.
+- Database invariants that combine deduplication, quota accounting, and usage events belong in transactional SQL/RPC code.
+- Run migration, RLS, function, trigger, or storage-policy changes through the migration pipeline. Regenerate database types after schema changes.
+
+### Supabase File Structure
+
+```text
+supabase/
+  config.toml              Supabase project configuration
+  migrations/              Timestamp-prefixed SQL migration files
+  schemas/                 Schema reference documentation (not executed)
+
+src/lib/supabase/
+  client.ts                Browser client (createBrowserClient)
+  server.ts                Server client for RSC/Route Handlers (createServerClient + cookies)
+  middleware.ts            Middleware client (updateSession for token refresh)
+  guard.ts                 requireAuth() helper — redirects unauthenticated users
+```
+
+### Auth Flow
+
+1. `src/middleware.ts` refreshes session tokens on every request via `updateSession()`
+2. Root layout calls `supabase.auth.getUser()` and passes user to `<Navbar>`
+3. Protected pages call `requireAuth()` which redirects to `/login` if no user
+4. Auth pages (`/login`, `/signup`) are client components using the browser client
+5. Profile data lives in `public.profiles` table (1:1 with `auth.users`, auto-created via trigger)
 
 ### Current Site State
 

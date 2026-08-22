@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { getAllPosts } from "@/sanity/queries/posts";
-import { getAllCategories } from "@/sanity/queries/categories";
-import { getAllDestinations } from "@/sanity/queries/destinations";
+import { getAllPosts } from "@/lib/queries/posts";
+import { getAllCategories } from "@/lib/queries/categories";
+import { getAllDestinations } from "@/lib/queries/destinations";
 
 function SvgConnector() {
   return (

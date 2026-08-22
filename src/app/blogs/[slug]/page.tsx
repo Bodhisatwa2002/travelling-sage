@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { getAllPosts, getPostBySlug as fetchPostBySlug } from "@/sanity/queries/posts";
-import { getAllAuthors } from "@/sanity/queries/authors";
+import { getAllPosts, getPostBySlug as fetchPostBySlug } from "@/lib/queries/posts";
+import { getAllAuthors } from "@/lib/queries/authors";
 import BlogDetailSidebar from "@/components/BlogDetailSidebar";
 import ShareButtons from "@/components/ShareButtons";
 import ReadingProgress from "@/components/ReadingProgress";
@@ -13,6 +13,8 @@ import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import TableOfContents from "@/components/TableOfContents";
 import type { TocItem } from "@/hooks/useTocObserver";
 import MobileTableOfContents from "@/components/MobileTableOfContents";
+import BackToTop from "@/components/BackToTop";
+import CommentSection from "@/components/CommentSection";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travelingsage.vercel.app";
 
@@ -106,7 +108,8 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
 
   return (
     <div className="max-w-360 mx-auto">
-      <ReadingProgress />
+      <ReadingProgress readTime={post.readTime} />
+      <BackToTop />
       <ArticleJsonLd
         title={post.seoTitle || post.title}
         description={post.metaDescription || post.subtitle || `Read ${post.title} on Traveling Sage`}
@@ -326,6 +329,9 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
               <div className="flex-1" />
             )}
           </div>
+
+          {/* Comments */}
+          <CommentSection slug={slug} />
 
           {/* Related Posts */}
           <RelatedPosts posts={relatedPosts} />

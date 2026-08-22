@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
-import { getAllPosts } from "@/sanity/queries/posts";
-import { getAllCategories } from "@/sanity/queries/categories";
-import { getAllDestinations, getAllRegions } from "@/sanity/queries/destinations";
+import { getAllPosts } from "@/lib/queries/posts";
+import { getAllCategories } from "@/lib/queries/categories";
+import { getAllDestinations, getAllRegions } from "@/lib/queries/destinations";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://travelingsage.vercel.app";

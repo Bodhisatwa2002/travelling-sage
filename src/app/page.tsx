@@ -7,7 +7,7 @@ import WatchSection from "@/components/WatchSection";
 import AboutSection from "@/components/AboutSection";
 import DiscoverSection from "@/components/DiscoverSection";
 import PodcastSection from "@/components/PodcastSection";
-import { getAllPosts } from "@/sanity/queries/posts";
+import { getAllPosts } from "@/lib/queries/posts";
 import { WebSiteJsonLd } from "@/components/JsonLd";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://travelingsage.vercel.app";

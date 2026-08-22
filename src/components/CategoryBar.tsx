@@ -6,7 +6,7 @@ import {
   Star,
   Map,
 } from "lucide-react";
-import { getAllCategories } from "@/sanity/queries/categories";
+import { getAllCategories } from "@/lib/queries/categories";
 
 const iconMap: Record<string, React.ReactNode> = {
   mountains: <Mountain size={16} />,

@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { getPostBySlug } from "@/sanity/queries/posts";
+import { getPostBySlug } from "@/lib/queries/posts";
 
 export const size = {
   width: 1200,

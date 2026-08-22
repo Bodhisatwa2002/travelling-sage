@@ -4,7 +4,6 @@ export const siteConfig = {
   tagline:
     "Dive into stories from India's most captivating destinations — from ancient ghats to Himalayan trails.",
   navLinks: [
-    { label: "HOME", href: "/" },
     { label: "BLOG", href: "/blogs" },
     { label: "DESTINATIONS", href: "/destinations" },
     { label: "CATEGORIES", href: "/categories" },

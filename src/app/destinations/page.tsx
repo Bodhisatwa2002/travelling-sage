@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getAllRegions, getDestinationsByRegion } from "@/sanity/queries/destinations";
+import { getAllRegions, getDestinationsByRegion } from "@/lib/queries/destinations";
 import CategoryCard from "@/components/CategoryCard";
 
 export const metadata: Metadata = {
