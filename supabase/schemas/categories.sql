@@ -1,0 +1,18 @@
+-- Schema reference for public.categories (documentation only, not executed)
+-- Migration: 20260822000000_content_tables.sql
+
+-- Table: public.categories
+-- Columns:
+--   id          uuid  PK, default gen_random_uuid()
+--   name        text  not null
+--   slug        text  not null, unique
+--   description text  not null
+--   image       text  not null (URL)
+--
+-- RLS: enabled
+-- Grants:
+--   anon, authenticated: SELECT
+--   service_role: ALL
+-- Policies:
+--   SELECT: anyone (public read)
+--   ALL: authenticated + is_admin() (admin write)

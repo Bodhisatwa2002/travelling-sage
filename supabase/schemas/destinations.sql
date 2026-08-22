@@ -1,0 +1,22 @@
+-- Schema reference for public.destinations (documentation only, not executed)
+-- Migration: 20260822000000_content_tables.sql
+
+-- Table: public.destinations
+-- Columns:
+--   id          uuid  PK, default gen_random_uuid()
+--   name        text  not null
+--   slug        text  not null, unique
+--   description text  not null
+--   image       text  not null (URL)
+--   region_id   uuid  not null, FK -> public.regions(id)
+--
+-- Indexes:
+--   idx_destinations_region on region_id
+--
+-- RLS: enabled
+-- Grants:
+--   anon, authenticated: SELECT
+--   service_role: ALL
+-- Policies:
+--   SELECT: anyone (public read)
+--   ALL: authenticated + is_admin() (admin write)

@@ -1,0 +1,20 @@
+-- Schema reference for public.authors (documentation only, not executed)
+-- Migration: 20260822000000_content_tables.sql
+
+-- Table: public.authors
+-- Columns:
+--   id         uuid    PK, default gen_random_uuid()
+--   name       text    not null
+--   slug       text    not null, unique
+--   role       text    nullable (e.g. 'Founder & Writer')
+--   bio        text    nullable
+--   image      text    nullable (URL)
+--   is_founder boolean default false
+--
+-- RLS: enabled
+-- Grants:
+--   anon, authenticated: SELECT
+--   service_role: ALL
+-- Policies:
+--   SELECT: anyone (public read)
+--   ALL: authenticated + is_admin() (admin write)

@@ -1,15 +1,20 @@
 -- Schema reference for public.profiles (documentation only, not executed)
--- See supabase/migrations/20260821000000_create_profiles.sql for the migration
+-- Migrations: 20260821000000_create_profiles.sql, 20260822000000_content_tables.sql
 
 -- Table: public.profiles
 -- Columns:
 --   id           uuid        PK, FK -> auth.users(id) ON DELETE CASCADE
 --   display_name text        nullable
 --   avatar_url   text        nullable
+--   role         text        not null, default 'user' (values: 'user', 'admin')
 --   created_at   timestamptz not null, default now()
 --   updated_at   timestamptz not null, default now()
 --
 -- RLS: enabled
+-- Grants:
+--   anon: SELECT
+--   authenticated: SELECT, INSERT, UPDATE, DELETE
+--   service_role: SELECT, INSERT, UPDATE, DELETE
 -- Policies:
 --   SELECT: anyone (public read)
 --   INSERT: authenticated, auth.uid() = id
@@ -18,3 +23,7 @@
 --
 -- Trigger: on_auth_user_created -> handle_new_user()
 --   Auto-creates profile row with display_name from signup metadata or email prefix
+--
+-- Function: public.is_admin()
+--   Returns true if current user's profile has role = 'admin'
+--   Used by content table RLS policies for admin write access

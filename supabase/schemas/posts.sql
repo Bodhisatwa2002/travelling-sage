@@ -1,0 +1,52 @@
+-- Schema reference for public.posts (documentation only, not executed)
+-- Migration: 20260822000000_content_tables.sql
+
+-- Table: public.posts
+-- Columns:
+--   id               uuid      PK, default gen_random_uuid()
+--   title            text      not null
+--   slug             text      not null, unique
+--   issue_number     text      nullable
+--   subtitle         text      nullable
+--   category_id      uuid      not null, FK -> public.categories(id)
+--   destination_id   uuid      nullable, FK -> public.destinations(id)
+--   author_id        uuid      not null, FK -> public.authors(id)
+--   read_time        text      nullable (e.g. '8 min read')
+--   image            text      nullable (URL)
+--   featured         boolean   default false
+--   published_at     timestamptz nullable
+--   seo_title        text      nullable
+--   meta_description text      nullable
+--   og_image         text      nullable (URL)
+--   content          jsonb     nullable
+--
+-- Content JSONB structure:
+--   Array of contentSection objects:
+--   [
+--     {
+--       "heading": "Section Title (h2)",
+--       "paragraphs": ["paragraph1", "paragraph2"],
+--       "images": [{"url": "...", "alt": "...", "caption": "..."}],
+--       "subSections": [
+--         {
+--           "heading": "Subsection Title (h3)",
+--           "paragraphs": ["..."],
+--           "images": [{"url": "...", "alt": "...", "caption": "..."}]
+--         }
+--       ]
+--     }
+--   ]
+--
+-- Indexes:
+--   idx_posts_category on category_id
+--   idx_posts_destination on destination_id
+--   idx_posts_author on author_id
+--   idx_posts_issue_number on issue_number DESC NULLS LAST
+--
+-- RLS: enabled
+-- Grants:
+--   anon, authenticated: SELECT
+--   service_role: ALL
+-- Policies:
+--   SELECT: anyone (public read)
+--   ALL: authenticated + is_admin() (admin write)
