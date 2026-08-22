@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Globe, Camera, MessageCircle, Briefcase } from "lucide-react";
-import { getAllAuthors, getFounder } from "@/sanity/queries/authors";
+import { getAllAuthors, getFounder } from "@/lib/queries/authors";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {

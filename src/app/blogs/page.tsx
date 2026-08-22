@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { getAllPosts } from "@/sanity/queries/posts";
-import BlogCard from "@/components/BlogCard";
+import { getAllPosts } from "@/lib/queries/posts";
+import BlogListingFilter from "@/components/BlogListingFilter";
 
 export const metadata: Metadata = {
   title: "Blog — Travel Stories & Guides from Across India",
@@ -29,21 +29,7 @@ export default async function BlogsPage() {
         Our blogs
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
-        {posts.map((post) => (
-          <BlogCard key={post.slug} post={post} />
-        ))}
-      </div>
-
-      {/* Pagination */}
-      <div className="flex items-center justify-end gap-4 mt-12">
-        <span className="text-sm text-[#555555]">
-          1 / {Math.ceil(posts.length / 9)}
-        </span>
-        <button className="bg-[#1A1A1A] text-white px-6 py-2.5 text-[13px] font-semibold tracking-wide hover:bg-[#333] transition-colors">
-          NEXT
-        </button>
-      </div>
+      <BlogListingFilter posts={posts} />
     </div>
   );
 }
